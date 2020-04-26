@@ -92,9 +92,7 @@ def create_state_save_location(context):
 
 
 def get_slurm_version():
-    out = subprocess.check_output([
-        "snap",
-        "info",
-        "slurm",
+    slurm_version = subprocess.check_output([
+        "slurm.version",
     ]).decode().rstrip()
-    return yaml.load(out)['installed'].split()[0]
+    return slurm_version
