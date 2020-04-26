@@ -92,15 +92,9 @@ def create_state_save_location(context):
 
 
 def get_slurm_version():
-    try:
-        sinfo_process = subprocess.Popen(['slurm.sinfo', '-V'], stdout=subprocess.PIPE)
-        (sinfo_out, sinfo_err) = sinfo_process.communicate()
-        sinfo_process_exit_status = sinfo_process.wait(10)
-        if sinfo_process_exit_status != 0:
-            VERSION = 'Unknown'
-        else:
-            VERSION = sinfo_out.split( )[1]
-    except FileNotFoundError:
-        VERSION = None
-
-    return VERSION
+    out = subprocess.check_output([
+        "snap",
+        "info",
+        "slurm",
+    ]).decode().rstrip()
+    return yaml.load(out)['installed'].split()[0]
