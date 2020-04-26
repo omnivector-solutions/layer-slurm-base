@@ -1,28 +1,27 @@
-name: Test Slurm Core Full Deploy
-on:
-  push:
-    branches:
-      - staging
-      - dev-*
-jobs:
-  lint:
-    name: lint_build_deploy
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: lint
-        uses: actions/checkout@v1
-      - uses: actions/setup-python@v1
-        with:
-          python-version: '3.x'
-          architecture: 'x64'
-      - name: Install python-tox
-        run: |
-          sudo apt-get update \
-          && sudo apt-get install -y \
-            python-tox
-      - run: make lint
-      - run: make build
+#name: Test Slurm Core Full Deploy
+#on:
+#  push:
+#    branches:
+#      - staging
+#      - dev-*
+#jobs:
+#  lint:
+#    name: lint_build_deploy
+#    runs-on: ubuntu-latest
+#
+#    steps:
+#      - name: lint
+#        uses: actions/checkout@v1
+#      - uses: actions/setup-python@v1
+#        with:
+#          python-version: '3.x'
+#          architecture: 'x64'
+#      - name: Install python-tox
+#        run: |
+#          sudo apt-get update \
+#          && sudo apt-get install -y \
+#            python-tox
+#      - run: make lint
 #  deploy:
 #    name: deploy
 #    runs-on: ubuntu-latest

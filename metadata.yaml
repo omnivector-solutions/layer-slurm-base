@@ -7,7 +7,7 @@ tags:
   - slurm
 
 resources:
-  slurm-snap:
+  slurm:
     type: file
     filename: slurm.snap
     description: SLURM Snap
