@@ -1,0 +1,13 @@
+name: slurm-base
+summary: Base layer for Slurm
+maintainer: Omnivector Solutions <info@omnivector.solutions>
+description: |
+  Base layer for Slurm charms.
+tags:
+  - slurm
+
+resources:
+  slurm-snap:
+    type: file
+    filename: slurm.snap
+    description: SLURM Snap

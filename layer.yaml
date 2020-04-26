@@ -1,0 +1,10 @@
+includes:
+  - 'layer:basic'
+  - 'layer:snap'
+options:
+  snap:
+    slurm:
+      channel: stable
+      dangerous: true
+      classic: true
+repo: 'https://github.com/omnivector-solutions/layer-slurm.git'

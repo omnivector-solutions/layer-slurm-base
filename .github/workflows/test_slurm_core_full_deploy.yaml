@@ -1,0 +1,54 @@
+name: Test Slurm Core Full Deploy
+on:
+  push:
+    branches:
+      - staging
+      - dev-*
+jobs:
+  lint:
+    name: lint_build_deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: lint
+        uses: actions/checkout@v1
+      - uses: actions/setup-python@v1
+        with:
+          python-version: '3.x'
+          architecture: 'x64'
+      - name: Install python-tox
+        run: |
+          sudo apt-get update \
+          && sudo apt-get install -y \
+            python-tox
+      - run: make lint
+      - run: make build
+#  deploy:
+#    name: deploy
+#    runs-on: ubuntu-latest
+#    needs: [lint]
+#    steps:
+#      - uses: actions/checkout@v1
+#      - name: Install NPM Deps
+#        uses: actions/setup-node@v1
+#        with:
+#          node-version: '10.x'
+#      - run: npm install
+#      - run: /home/runner/work/pdl-job-api/pdl-job-api/node_modules/serverless/bin/serverless deploy
+#        env:
+#          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#          AWS_DEFAULT_REGION: 'us-west-2'
+  notify:
+    name: notify
+    runs-on: ubuntu-latest
+    needs: [lint_build_deploy]
+    steps:
+      - uses: 8398a7/action-slack@v2
+        with:
+          status: ${{ job.status }}
+          #author_name: 
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # required
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+        if: always() # Pick up events even if the job fails or is canceled.
