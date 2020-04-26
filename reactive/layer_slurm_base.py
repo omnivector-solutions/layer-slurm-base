@@ -7,7 +7,7 @@ from charmhelpers.core.hookenv import application_version_set
 from charms.slurm.helpers import get_slurm_version
 
 
-@when('snap.slurm.installed')
+@when('snap.installed.slurm')
 @when_not('slurm.base.available')
 def set_slurm_version():
     # Set Slurm version
