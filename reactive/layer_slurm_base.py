@@ -1,5 +1,5 @@
 from charms.reactive import when, when_not
-from charms.reactive import set_state
+from charms.reactive import set_flag
 
 from charmhelpers.core.hookenv import status_set
 from charmhelpers.core.hookenv import application_version_set
@@ -18,4 +18,4 @@ def set_slurm_version():
         status_set('blocked', 'cannot get slurm version')
         return
     status_set('active', '')
-    set_state('slurm.base.available')
+    set_flag('slurm.base.available')
